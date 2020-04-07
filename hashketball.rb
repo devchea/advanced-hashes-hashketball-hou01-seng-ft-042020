@@ -1,7 +1,4 @@
 # Write your code here!
-require './hashketball.rb'
-require 'pry'
-
 def game_hash
   {
     away: { team_name: 'Charlotte Hornets',
@@ -105,13 +102,63 @@ def game_hash
   }
 end
 
-def num_points_scored(player_name)
-  game_hash.each do |location, team_data|
-    team_data.each do|attribute, data|
-      data.each do|data_item|
-      binding.pry
-    # if player_name ==
+require './hashketball.rb'
+require 'pry'
 
+def num_points_scored(player_search)
+  game_hash.each do |location, team_attribute|
+    team_attribute[:players].each do|player_attribute|
+      if player_attribute[:player_name] == player_search
+        return player_attribute[:points]
+      end
+    end
+  end
+end
+
+def shoe_size (player_search)
+  game_hash.each do |location,team_attribute|
+    team_attribute[:players].each do|player_attribute|
+      if player_attribute[:player_name] == player_search
+        return player_attribute[:shoe]
+      end
+    end
+  end
+end
+
+def team_colors (team_color_search)
+  game_hash.each do |location, team_attribute|
+    if team_attribute[:team_name] == team_color_search
+      return team_attribute[:colors]
+    end
+  end
+end
+
+def team_names
+  game_hash.map do |location, team_attribute|
+      team_attribute[:team_name]
+  end
+end
+
+# charlotte_numbers = [0, 2, 4, 8, 33]
+# brooklyn_numbers = [0, 1, 11, 30, 31]
+def player_numbers (team_name)
+  game_hash.each do |location, team_attribute|
+    if team_attribute[:team_name] == team_name
+      return team_attribute[:players].collect do |player|
+        player[:number]
+      end
+    end
+  end
+end
+
+def player_stats(player_name)
+  game_hash.values.each do |team_info|
+    binding.pry
+    team_info[:players].each do |player|
+      if player.has_value?(player_name)
+         player.delete(:player_name)
+         return player
+      end
     end
   end
 end
