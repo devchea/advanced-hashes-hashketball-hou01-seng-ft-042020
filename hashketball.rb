@@ -152,7 +152,7 @@ def player_numbers (team_name)
 end
 
 def player_stats(player_name)
-  game_hash.each do |team_info|
+  game_hash.values.each do |team_info|
     binding.pry
     team_info[:players].each do |player|
       if player.has_value?(player_name)
